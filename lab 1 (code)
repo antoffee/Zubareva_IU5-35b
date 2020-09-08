@@ -1,0 +1,129 @@
+using System;
+
+namespace lab1
+{
+    
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta; // устанавливаем цвет
+            Console.WriteLine("Зубарева ИУ5-35б ");
+            Console.ResetColor(); // сбрасываем в стандартный
+            
+            
+            int A, B, C;
+            /// <summary>
+            ///Ввод коэфициентов из параметров
+            ///</summary>
+            if (args.GetLength(0) == 3)
+            {
+                A = CheckInt(args[0]);
+                B = CheckInt(args[1]);
+                C = CheckInt(args[2]);
+            }
+            else
+            {
+                /// <summary>
+                /// Ввод и проверка коэфициентов
+                /// </summary>
+
+                string temp_line;
+
+                Console.Write("A = ");
+                temp_line = Console.ReadLine();
+                A = CheckInt(temp_line);
+                       
+                Console.Write("B = ");
+                temp_line = Console.ReadLine();
+                B = CheckInt(temp_line);
+
+                Console.Write("C = ");
+                temp_line = Console.ReadLine();
+                C = CheckInt(temp_line);
+            }
+            // Console.Write(A);
+            Console.WriteLine("Полученное уравнение {0}х^4+{1}x^2+{2}", A,B,C);
+            /// <summary>
+            ///Решение уравнения
+            /// </summary>
+            double D;
+            D = B ^ 2 - 4 * A * C;
+            if (D < 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red; // устанавливаем цвет
+                Console.WriteLine("Нет корней");
+                Console.ResetColor(); // сбрасываем в стандартный
+            }
+            else if (D==0)
+            {
+                double y= -B  / (2 * A);
+                if (y < 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red; // устанавливаем цвет
+                    Console.WriteLine("Нет корней");
+                    Console.ResetColor(); // сбрасываем в стандартный
+                }
+                else {
+                    double x_1 = Math.Sqrt(y);
+                    double x_2 = -Math.Sqrt(y);
+                    Console.ForegroundColor = ConsoleColor.Green; // устанавливаем цвет
+                    Console.WriteLine("Корни уравнения: {0}, {1}", x_1, x_2);
+                    Console.ResetColor(); // сбрасываем в стандартный
+                }
+            }
+            else
+            {
+                double y_1 = (-B + Math.Sqrt(D)) / (2 * A);
+                double y_2= (-B - Math.Sqrt(D)) / (2 * A);
+                if((y_1>0) && (y_2 > 0))
+                {
+                    double x_1 = Math.Sqrt(y_1);
+                    double x_2 = -Math.Sqrt(y_1);
+                    double x_3 = Math.Sqrt(y_2);
+                    double x_4 = -Math.Sqrt(y_2);
+                    Console.ForegroundColor = ConsoleColor.Green; // устанавливаем цвет
+                    Console.WriteLine("Корни уравнения: {0}, {1}, {2}, {3}.", x_1, x_2, x_3, x_4);
+                    Console.ResetColor(); // сбрасываем в стандартный
+                }
+                else if (y_1 < 0) {
+                    double x_1 = Math.Sqrt(y_2);
+                    double x_2 = -Math.Sqrt(y_2);
+                    Console.ForegroundColor = ConsoleColor.Green; // устанавливаем цвет
+                    Console.WriteLine("Корни уравнения: {0}, {1}", x_1, x_2);
+                    Console.ResetColor(); // сбрасываем в стандартный
+                }
+                else
+                {
+                    double x_1 = Math.Sqrt(y_1);
+                    double x_2 = -Math.Sqrt(y_1);
+                    Console.ForegroundColor = ConsoleColor.Green; // устанавливаем цвет
+                    Console.WriteLine("Корни уравнения: {0}, {1}", x_1, x_2);
+                    Console.ResetColor(); // сбрасываем в стандартный
+                }
+            }
+                   
+            
+        }
+
+        static int CheckInt(string line)
+        {
+            int res;
+            while (true)
+            {
+                try
+                {
+                    res = Convert.ToInt32(line);
+                    break;
+                }
+                catch (System.FormatException)
+                {
+                    Console.WriteLine("Некорректный ввод. Введите число. ");
+                    line = Console.ReadLine();
+                }
+
+            }
+            return res;
+        }
+    }
+}
